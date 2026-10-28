@@ -147,11 +147,15 @@ window.G = (function () {
     const bodyH = list.length * RH;
     const deps = v.showDeps ? depPaths(list, RH) : '';
     const cols = sc.units.map((u, i) => `<i class="g-col ${i === curIdx ? 'cur' : ''}" style="left:${i * colW}px;width:${colW}px"></i>`).join('');
-    const todayX = today >= sc.start && today < sc.end ? sc.x(today) + (sc.x(T.add(today, 1)) - sc.x(today)) / 2 : null;
+    // dotted markers in the middle of their day: olive = today, red = last updated
+    const dayX = (d) => (d >= sc.start && d < sc.end ? sc.x(d) + (sc.x(T.add(d, 1)) - sc.x(d)) / 2 : null);
+    const todayX = dayX(today), lastX = dayX(LIM_DATA.LAST_UPDATED);
+    const marks = (lastX !== null ? `<i class="g-mark g-last" style="left:${lastX}px" data-tip="Last updated · ${fmt(LIM_DATA.LAST_UPDATED)}"></i>` : '')
+      + (todayX !== null ? `<i class="g-mark g-today" style="left:${todayX}px" data-tip="Today · ${fmt(today)}"></i>` : '');
 
     el.innerHTML = `<div class="g-scroll" id="gScroll"><div class="g-inner" style="width:${LW + W}px">${head}
       <div class="g-body" style="--lw:${LW}px">
-        <div class="g-cols" style="left:${LW}px;width:${W}px">${cols}${todayX !== null ? `<i class="g-today" style="left:${todayX}px" data-tip="Today · ${fmt(today)}"></i>` : ''}</div>
+        <div class="g-cols" style="left:${LW}px;width:${W}px">${cols}${marks}</div>
         <svg class="g-deps" style="left:${LW}px" width="${W}" height="${bodyH}"><defs>
           <marker id="arr" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L8 4L0 8z" fill="#B0B0B5"/></marker>
           <marker id="arrOn" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L8 4L0 8z" fill="#F7A21B"/></marker></defs>${deps}</svg>
@@ -162,7 +166,14 @@ window.G = (function () {
 
     const scroller = el.querySelector('.g-scroll');
     if (prevScroll) { scroller.scrollLeft = prevScroll.l; scroller.scrollTop = prevScroll.t; }
-    else if (todayX !== null) scroller.scrollLeft = Math.max(0, todayX - (el.clientWidth - LW) / 2);
+    if ((!prevScroll || toToday) && todayX !== null) scroller.scrollLeft = Math.max(0, todayX - (el.clientWidth - LW) / 2);
+    toToday = false;
+    // slide the timeline from where the old window was, so the user sees which way it moved
+    if (slideFrom) {
+      const dx = Math.max(-W, Math.min(W, -sc.x(slideFrom)));
+      slideFrom = null;
+      if (Math.abs(dx) >= 1) { el.style.setProperty('--slide', `${dx}px`); el.classList.remove('sliding'); void el.offsetWidth; el.classList.add('sliding'); clearTimeout(slideT); slideT = setTimeout(() => el.classList.remove('sliding'), 320); }
+    }
     bind(el);
   }
 
@@ -323,5 +334,9 @@ window.G = (function () {
     return lines.join('\n');
   }
 
-  return { COLS, GROUPS, render, applyLevel, expandAll, collapseAll, counts, toCSV, pct, scale: () => sc };
+  let slideFrom = null, slideT = null, toToday = false;
+  const slideFromFn = (iso) => { slideFrom = iso; };
+  const scrollToToday = () => { toToday = true; render(); };
+
+  return { COLS, GROUPS, render, slideFrom: slideFromFn, scrollToToday, applyLevel, expandAll, collapseAll, counts, toCSV, pct, scale: () => sc };
 })();

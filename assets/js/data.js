@@ -3,7 +3,10 @@
    Where the recording only showed a truncated value ("Furniture Migra…"), the
    value is completed here and marked with  // completed  so it can be swapped for API data. */
 window.LIM_DATA = (function () {
-  const TODAY = '2026-10-27'; // "Last updated on: 27.10.2026" in the live app
+  // Today = the viewer's current date (olive line). Last updated = when the planning data was last
+  // updated (red line, "Last updated on: 27.10.2026" in the live app).
+  const now = new Date();
+  const TODAY = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
 
   // cat: row category from the legend → criticalDate | volNormal | volCritical | other (lavender rows in the live app)
   const A = (id, name, o) => Object.assign({

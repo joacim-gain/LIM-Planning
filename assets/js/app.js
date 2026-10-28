@@ -19,7 +19,8 @@
 
   document.getElementById('fab').onclick = () => P.addActivity(null);
 
-  // first render
+  // first render · the timeline opens on the period that contains today
+  S.view.anchor = T.align(S.view.period, LIM_DATA.TODAY);
   G.applyLevel(S.view.level);
   R.render();
   G.render();

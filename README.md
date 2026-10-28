@@ -4,7 +4,7 @@ A clickable front-end of the redesigned LIM **Planning** module. The Settings dr
 It's plain HTML, CSS and JavaScript: no build step, no backend. Data lives in the browser (`localStorage`).
 
 - **Design** follows the LIM Figma file: page **New Planning** (screens + `Planning Ribbon` component), built from the source frames on *Activity details update › Updated Gantt Chart* and the Amlog DS.
-- **Data and interactions** follow the live LIM app recording (project *Amazon*, demo "today" = **27.10.2026**).
+- **Data and interactions** follow the live LIM app recording (project *Amazon*). **Today** is the viewer's current date; **Last updated** is 27.10.2026, as in the live app.
 - Avatar (top left) → **Reset demo data** restores the original data and settings.
 
 ## Run it locally
@@ -23,11 +23,17 @@ The CSS and JS links in `index.html` end with `?v=…` (version tags). After you
 
 | File | What it does |
 | --- | --- |
-| `assets/js/ribbon.js` | Ribbon. Row 1: search + filter chips, period navigation, Active Today, zoom, fit, refresh, info, Legends, Compact, collapse. Row 2: Time Period, Group By, Sort By, Column, Level, View modes, Activity actions |
+| `assets/js/ribbon.js` | Ribbon. Row 1: search + filter chips, Today + ‹ › timeline navigation, Active Tasks, zoom, fit, refresh, info, Legends, Compact, collapse. Row 2: Time Period, Sort By, Group By, Column, Level (Expand all / Collapse all), View modes, Activity actions |
 | `assets/js/gantt.js` | Table + timeline, tree, grouping, sorting, filtering, bars, dependencies, drag/resize, linking, hover card, row menu |
 | `assets/js/panels.js` | Right panel: Activity Details, Edit Activity Date, Assign Zone, Add (Sub) Activity, Edit |
 | `assets/js/time.js` | The five time periods and their column headers |
 | `assets/js/data.js` | Demo data from the live app |
+
+## Timeline navigation and markers
+
+- **‹ ›** slide the timeline one step: Yearly and Quarterly by 1 month, Monthly by 1 week, Weekly by 1 day. The timeline animates in the direction it moves.
+- The **calendar icon** (tooltip "Today") jumps back to the period that contains today.
+- Two dotted lines run down the timeline, each with a tooltip: **olive = Today**, **red = Last updated**.
 
 ## Where the drawer settings went
 

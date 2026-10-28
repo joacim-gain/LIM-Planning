@@ -88,12 +88,8 @@ mark { background: #F5E79E; color: inherit; border-radius: 2px; }
 .rb-filter { width: 44px; height: 32px; display: grid; place-items: center; color: var(--olive); border-radius: 4px; }
 .rb-filter:hover, .rb-filter.on { background: var(--olive-50); }
 .rb-quick { display: flex; align-items: center; gap: 4px; flex: none; }   /* Figma "Frame 758": gap 4, 1×16 lines */
-.rb-nav { display: flex; align-items: center; }                          /* 234 = 32 calendar + 202 */
-.rb-navc { display: flex; align-items: center; gap: 4px; }               /* 202 = 32 ‹ + label + 32 › */
-.rb-nav.off .rb-period { opacity: .5; }
-.rb-period { display: flex; align-items: center; gap: 8px; white-space: nowrap; }
-.rb-period b { font-weight: 500; font-size: 12px; letter-spacing: .05px; color: var(--t1); }
-.rb-period small { font-size: 10px; letter-spacing: -.02px; color: var(--t2); }
+.rb-nav { display: flex; align-items: center; gap: 4px; }               /* 104 = 32 Today + 4 + 68 */
+.rb-navc { display: flex; align-items: center; gap: 4px; }               /* 68 = 32 ‹ + 4 + 32 › */
 .rb-ib { width: 32px; height: 32px; flex: none; display: grid; place-items: center; color: var(--t2); border-radius: 4px; }
 .rb-ib:hover:not(:disabled), .rb-ib.on { background: rgba(38,38,51,.06); }
 .rb-ib:disabled { opacity: .2; }
@@ -114,11 +110,11 @@ mark { background: #F5E79E; color: inherit; border-radius: 2px; }
 
 /* ---------------- ribbon · row 2 (Figma "Row 2 · Ribbon groups": 80px, pad 0 12, gap 16) ---------------- */
 .rb-row2 { height: 80px; display: flex; align-items: flex-start; gap: 16px; padding: 0 12px; background: #fff; border-bottom: 1px solid var(--border-bar); overflow-x: auto; overflow-y: hidden; scrollbar-width: thin; }
-.rb-g1 { display: flex; gap: 10px; padding-top: 8px; flex: 1 0 auto; min-width: 679px; }   /* Group By + Column fill the free width */
+.rb-g1 { display: flex; gap: 10px; padding-top: 8px; flex: 1 0 auto; min-width: 691px; }   /* Group By + Column fill the free width */
 .rb-lr { height: 24px; display: flex; align-items: center; gap: 8px; }
 .rb-dd { display: flex; flex-direction: column; gap: 2px; flex: none; }
-#ddPeriod { width: 96px; } #ddSort { width: 100px; }
-#ddGroup, #ddCols { flex: 1 1 177.5px; min-width: 177.5px; }
+#ddPeriod { width: 136px; }   /* fits "Project Duration" */ #ddSort { width: 100px; }
+#ddGroup { flex: 1 1 120px; min-width: 120px; } #ddCols { flex: 1 1 167px; min-width: 167px; }
 .rb-field { width: 100%; height: 32px; display: flex; align-items: center; gap: 8px; padding: 8px 4px 8px 12px; border: 1px solid var(--border-field); border-radius: 4px; background: #fff; text-align: left; font-size: 12px; line-height: 16px; letter-spacing: .2px; color: var(--t1); }
 .rb-field > span:first-child { flex: 1; }
 .rb-field .ms { color: var(--t2); }
@@ -127,8 +123,11 @@ mark { background: #F5E79E; color: inherit; border-radius: 2px; }
 .rb-gd { width: 1px; height: 79px; background: var(--border-bar); flex: none; }
 .rb-gd.first { background: var(--border-field); }
 .rb-group { display: flex; flex-direction: column; gap: 2px; flex: none; }
-#gLevel { width: 88px; }
-.rb-stepper { width: 88px; height: 32px; display: flex; align-items: center; justify-content: space-between; padding: 0 6px; border: 1px solid var(--border-field); border-radius: 4px; background: #fff; }
+#gLevel { width: 128px; }
+#gLevel .rb-lr { justify-content: space-between; }
+.rb-lbtn { height: 12px; font-weight: 500; font-size: 10px; line-height: 12px; letter-spacing: .4px; text-transform: uppercase; color: var(--olive-btn); white-space: nowrap; }
+.rb-lbtn:hover { text-decoration: underline; }
+.rb-stepper { width: 128px; height: 32px; display: flex; align-items: center; justify-content: space-between; padding: 0 6px; border: 1px solid var(--border-field); border-radius: 4px; background: #fff; }
 .rb-stepper button { width: 20px; height: 20px; display: grid; place-items: center; }
 #lvMinus { color: var(--olive); } #lvPlus { color: var(--t1); }   /* Figma keeps both icons at full colour */
 .rb-stepper > span { font-size: 12px; letter-spacing: .2px; color: var(--t1); }
@@ -148,11 +147,10 @@ mark { background: #F5E79E; color: inherit; border-radius: 2px; }
 .rb-radio.on .rd::after { content: ''; position: absolute; inset: 2px; border-radius: 50%; background: var(--olive); }
 .rb-radio:disabled { opacity: .4; }
 .rb-acts { width: 35px; flex: none; display: flex; flex-direction: column; align-items: center; gap: 1px; padding-top: 10px; }
-.rb-act { width: 32px; height: 32px; padding: 8px; border-radius: 8px; display: grid; place-items: center; color: var(--t2); background: #fff; }
-.rb-act:hover { background: var(--subtle); }
-.rb-setdef { width: 89px; flex: none; align-self: center; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; padding: 8px 4px; border-radius: 8px; color: var(--olive-btn); }
+.rb-act { width: 32px; height: 32px; padding: 8px; border-radius: 4px; display: grid; place-items: center; color: var(--t2); background: #fff; }
+.rb-act:hover, .rb-setdef:hover { background: rgba(38,38,51,.06); }   /* same hover as the row 1 icon buttons */
+.rb-setdef { flex: none; align-self: center; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; padding: 8px 6px; border-radius: 4px; color: var(--olive-btn); }
 .rb-setdef span:not(.ms) { font-weight: 500; font-size: 10px; line-height: 12px; letter-spacing: .4px; text-transform: uppercase; white-space: nowrap; }
-.rb-setdef:hover { background: var(--subtle); }   /* same hover as Download / Import */
 
 /* ---------------- gantt ---------------- */
 .gantt { flex: 1; min-height: 0; position: relative; }
@@ -174,7 +172,11 @@ mark { background: #F5E79E; color: inherit; border-radius: 2px; }
 .g-cols { position: absolute; top: 0; bottom: 0; }
 .g-col { position: absolute; top: 0; bottom: 0; border-left: 1px solid var(--grid); }
 .g-col.cur { background: var(--cur-col); }
-.g-today { position: absolute; top: 0; bottom: 0; width: 6px; margin-left: -3px; border-left: 0; background: linear-gradient(var(--today) 50%, transparent 0) center / 1px 6px repeat-y; z-index: 1; }
+.g-mark { position: absolute; top: 0; bottom: 0; width: 6px; margin-left: -3px; z-index: 1; background: linear-gradient(var(--mark) 50%, transparent 0) center / 2px 6px repeat-y; }
+.g-today { --mark: var(--olive); z-index: 2; }
+.g-last { --mark: var(--today); }
+.gantt.sliding .g-tl, .gantt.sliding .g-cols > *, .gantt.sliding .g-deps, .gantt.sliding .g-track > * { animation: g-slide .3s cubic-bezier(.2, 0, 0, 1); }
+@keyframes g-slide { from { transform: translateX(var(--slide)); } }
 .g-deps { position: absolute; top: 0; z-index: 2; pointer-events: none; overflow: hidden; }
 .g-deps > path { fill: none; stroke: var(--dep); stroke-width: 2; }
 .g-deps > path.on { stroke: var(--dep-on); }
@@ -249,16 +251,6 @@ mark { background: #F5E79E; color: inherit; border-radius: 2px; }
 .fp-in:focus, .fp-date:focus-within { border-color: var(--olive); }
 .fp .rb-switch { font-size: 12px; color: var(--t1); margin-left: 4px; }
 .fp-f { display: flex; justify-content: flex-end; gap: 8px; margin-top: 28px; }
-.cal-pop { width: 248px; }
-.cal { padding: 8px; }
-.cal-h { display: flex; align-items: center; justify-content: space-between; padding: 0 0 8px; }
-.cal-h b { font-weight: 500; font-size: 14px; }
-.cal-g { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; }
-.cal-g button { height: 36px; border-radius: 18px; font-size: 12px; color: var(--t1); }
-.cal-g button:hover { background: var(--subtle); }
-.cal-g button.now { box-shadow: inset 0 0 0 1px var(--olive); }
-.cal-g button.on { background: var(--olive); color: #fff; }
-.cal-f { display: flex; justify-content: flex-end; padding-top: 4px; }
 .lg-pop { min-width: 220px; }
 .lg { padding: 12px 16px; display: flex; flex-direction: column; gap: 8px; }
 .lg-i { display: flex; align-items: center; gap: 8px; font-size: 12px; letter-spacing: .4px; color: var(--t2); }

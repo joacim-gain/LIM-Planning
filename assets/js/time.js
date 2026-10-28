@@ -17,14 +17,15 @@ window.T = (function () {
     ['yearly', 'Yearly'], ['quarterly', 'Quarterly'], ['monthly', 'Monthly'], ['weekly', 'Weekly'], ['project', 'Project Duration'],
   ];
 
-  // units: [{start, end (exclusive), label, sub}] — every unit gets the same column width
+  // units: [{start, end (exclusive), label, sub}] — every unit gets the same column width.
+  // The window starts at `anchor` (see align); the ‹ › arrows slide it by one step.
   function units(period, anchor, range) {
     const a = P(anchor), y = a.getUTCFullYear(), m = a.getUTCMonth();
     const out = [];
-    if (period === 'yearly') for (let i = 0; i < 12; i++) out.push({ start: ym(y, i), end: ym(y, i + 1), label: MONTHS[i].slice(0, 3) });
-    if (period === 'quarterly') { const q = Math.floor(m / 3) * 3; for (let i = q; i < q + 3; i++) out.push({ start: ym(y, i), end: ym(y, i + 1), label: MONTHS[i] }); }
-    if (period === 'monthly') { const s = ym(y, m), e = ym(y, m + 1); for (let d = s; d < e; d = add(d, 1)) out.push({ start: d, end: add(d, 1), label: d.slice(8) }); }
-    if (period === 'weekly') { const s = add(anchor, -dow(anchor)); for (let i = 0; i < 7; i++) { const d = add(s, i); out.push({ start: d, end: add(d, 1), label: d.slice(8), sub: DAYS[i] }); } }
+    if (period === 'yearly') for (let i = m; i < m + 12; i++) out.push({ start: ym(y, i), end: ym(y, i + 1), label: MONTHS[(i % 12 + 12) % 12].slice(0, 3) });
+    if (period === 'quarterly') for (let i = m; i < m + 3; i++) out.push({ start: ym(y, i), end: ym(y, i + 1), label: MONTHS[(i % 12 + 12) % 12] });
+    if (period === 'monthly') { const e = addMonths(anchor, 1); for (let d = anchor; d < e; d = add(d, 1)) out.push({ start: d, end: add(d, 1), label: d.slice(8) }); }
+    if (period === 'weekly') for (let i = 0; i < 7; i++) { const d = add(anchor, i); out.push({ start: d, end: add(d, 1), label: d.slice(8), sub: DAYS[dow(d)] }); }
     if (period === 'project') { for (let yy = +range[0].slice(0, 4) - 1; yy <= +range[1].slice(0, 4) + 2; yy++) out.push({ start: `${yy}-01-01`, end: `${yy + 1}-01-01`, label: String(yy) }); }
     return out;
   }
@@ -50,13 +51,23 @@ window.T = (function () {
   }
 
   function navLabel(anchor) { const d = P(anchor); return { main: `${d.getUTCFullYear()}, ${MONTHS[d.getUTCMonth()]}`, week: `Week ${weekOfMonth(anchor)}` }; }
+  // window start for a date: Yearly = 1 Jan · Quarterly = quarter start · Monthly = 1st · Weekly = Monday
+  function align(period, iso) {
+    const d = P(iso), y = d.getUTCFullYear(), m = d.getUTCMonth();
+    if (period === 'yearly') return ym(y, 0);
+    if (period === 'quarterly') return ym(y, Math.floor(m / 3) * 3);
+    if (period === 'monthly') return ym(y, m);
+    if (period === 'weekly') return add(iso, -dow(iso));
+    return iso;
+  }
+  // one arrow click: Yearly / Quarterly = 1 month · Monthly = 1 week · Weekly = 1 day
+  const STEP_LABEL = { yearly: '1 month', quarterly: '1 month', monthly: '1 week', weekly: '1 day' };
   function step(period, anchor, dir) {
-    if (period === 'yearly') return addMonths(anchor, 12 * dir);
-    if (period === 'quarterly') return addMonths(anchor, 3 * dir);
-    if (period === 'monthly') return addMonths(anchor, dir);
-    if (period === 'weekly') return add(anchor, 7 * dir);
+    if (period === 'yearly' || period === 'quarterly') return addMonths(anchor, dir);
+    if (period === 'monthly') return add(anchor, 7 * dir);
+    if (period === 'weekly') return add(anchor, dir);
     return anchor;
   }
 
-  return { MONTHS, DAYS, PERIODS, P, I, add, addMonths, diff, dow, scale, navLabel, step };
+  return { MONTHS, DAYS, PERIODS, P, I, add, addMonths, diff, dow, scale, navLabel, align, step, STEP_LABEL };
 })();
