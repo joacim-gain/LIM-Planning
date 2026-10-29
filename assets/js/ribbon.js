@@ -1,5 +1,5 @@
 /* Ribbon (replaces the Settings drawer) · LIM Figma "Planning Ribbon" (New Planning page)
-   Row 1 · quick controls: search + filter, Today + ‹ ›, Active Tasks, zoom, fit, refresh, info, Legends, Compact, collapse
+   Row 1 · quick controls: search + filter, TODAY + ‹ ›, Active Tasks, zoom, fit, refresh, info, Legends, Compact, collapse
    Row 2 · Time Period · Sort By · Group By · Column · Level (Expand all) | View modes | Import / Download | Set as default */
 window.R = (function () {
   const { esc, ms, fmt } = UI;
@@ -39,10 +39,10 @@ window.R = (function () {
       </div>
       <div class="rb-quick">
         <div class="rb-nav">
-          <button class="rb-ib" id="rbCal" data-tip="Today">${ms('insert_invitation', 's20')}</button>
+          <button class="rb-text" id="rbCal">Today</button>
           <div class="rb-navc">
-            <button class="rb-ib" id="rbPrev" data-tip="${stepL ? `Back ${stepL}` : 'Previous'}" ${stepL ? '' : 'disabled'}>${ms('keyboard_arrow_left', 's20')}</button>
-            <button class="rb-ib" id="rbNext" data-tip="${stepL ? `Forward ${stepL}` : 'Next'}" ${stepL ? '' : 'disabled'}>${ms('keyboard_arrow_right', 's20')}</button>
+            <button class="rb-ib" id="rbPrev" data-tip="${stepL ? `Previous ${stepL}` : 'Previous'}" ${stepL ? '' : 'disabled'}>${ms('keyboard_arrow_left', 's20')}</button>
+            <button class="rb-ib" id="rbNext" data-tip="${stepL ? `Next ${stepL}` : 'Next'}" ${stepL ? '' : 'disabled'}>${ms('keyboard_arrow_right', 's20')}</button>
           </div>
         </div>
         <i class="rb-vd"></i>
@@ -103,7 +103,7 @@ window.R = (function () {
       const k = b.dataset.unchip; if (k === 'dur') { v.filters.from = ''; v.filters.to = ''; } else if (k === 'activeToday') v.filters.activeToday = false; else v.filters[k] = ''; changed();
     });
     $('rbFilter').onclick = (e) => filterPop(e.currentTarget);
-    // timeline navigation: ‹ › slide the window one step, the calendar icon jumps back to today
+    // timeline navigation: ‹ › slide the window one step, TODAY jumps back to the period that contains today
     const go = (to) => { if (to === v.anchor) return; G.slideFrom(v.anchor); v.anchor = to; changed(); };
     $('rbPrev').onclick = () => go(T.step(v.period, v.anchor, -1));
     $('rbNext').onclick = () => go(T.step(v.period, v.anchor, 1));

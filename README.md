@@ -23,7 +23,7 @@ The CSS and JS links in `index.html` end with `?v=…` (version tags). After you
 
 | File | What it does |
 | --- | --- |
-| `assets/js/ribbon.js` | Ribbon. Row 1: search + filter chips, Today + ‹ › timeline navigation, Active Tasks, zoom, fit, refresh, info, Legends, Compact, collapse. Row 2: Time Period, Sort By, Group By, Column, Level (Expand all / Collapse all), View modes, Activity actions |
+| `assets/js/ribbon.js` | Ribbon. Row 1: search + filter chips, TODAY + ‹ › timeline navigation, Active Tasks, zoom, fit, refresh, info, Legends, Compact, collapse. Row 2: Time Period, Sort By, Group By, Column, Level (Expand all / Collapse all), View modes, Activity actions |
 | `assets/js/gantt.js` | Table + timeline, tree, grouping, sorting, filtering, bars, dependencies, drag/resize, linking, hover card, row menu |
 | `assets/js/panels.js` | Right panel: Activity Details, Edit Activity Date, Assign Zone, Add (Sub) Activity, Edit |
 | `assets/js/time.js` | The five time periods and their column headers |
@@ -31,8 +31,8 @@ The CSS and JS links in `index.html` end with `?v=…` (version tags). After you
 
 ## Timeline navigation and markers
 
-- **‹ ›** slide the timeline one step: Yearly and Quarterly by 1 month, Monthly by 1 week, Weekly by 1 day. The timeline animates in the direction it moves.
-- The **calendar icon** (tooltip "Today") jumps back to the period that contains today.
+- **‹ ›** move to the previous / next period: Yearly = 1 year, Quarterly = 1 quarter, Monthly = 1 month, Weekly = 1 week. The timeline animates in the direction it moves.
+- **TODAY** (text button, styled like Legends) jumps back to the period that contains today.
 - Two dotted lines run down the timeline, each with a tooltip: **olive = Today**, **red = Last updated**.
 
 ## Where the drawer settings went

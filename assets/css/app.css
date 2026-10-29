@@ -88,7 +88,7 @@ mark { background: #F5E79E; color: inherit; border-radius: 2px; }
 .rb-filter { width: 44px; height: 32px; display: grid; place-items: center; color: var(--olive); border-radius: 4px; }
 .rb-filter:hover, .rb-filter.on { background: var(--olive-50); }
 .rb-quick { display: flex; align-items: center; gap: 4px; flex: none; }   /* Figma "Frame 758": gap 4, 1×16 lines */
-.rb-nav { display: flex; align-items: center; gap: 4px; }               /* 104 = 32 Today + 4 + 68 */
+.rb-nav { display: flex; align-items: center; gap: 4px; }               /* TODAY text button + 4 + 68 */
 .rb-navc { display: flex; align-items: center; gap: 4px; }               /* 68 = 32 ‹ + 4 + 32 › */
 .rb-ib { width: 32px; height: 32px; flex: none; display: grid; place-items: center; color: var(--t2); border-radius: 4px; }
 .rb-ib:hover:not(:disabled), .rb-ib.on { background: rgba(38,38,51,.06); }

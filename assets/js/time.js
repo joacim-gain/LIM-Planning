@@ -60,12 +60,13 @@ window.T = (function () {
     if (period === 'weekly') return add(iso, -dow(iso));
     return iso;
   }
-  // one arrow click: Yearly / Quarterly = 1 month · Monthly = 1 week · Weekly = 1 day
-  const STEP_LABEL = { yearly: '1 month', quarterly: '1 month', monthly: '1 week', weekly: '1 day' };
+  // one arrow click moves a whole period: Yearly = 1 year · Quarterly = 1 quarter · Monthly = 1 month · Weekly = 1 week
+  const STEP_LABEL = { yearly: 'year', quarterly: 'quarter', monthly: 'month', weekly: 'week' };
   function step(period, anchor, dir) {
-    if (period === 'yearly' || period === 'quarterly') return addMonths(anchor, dir);
-    if (period === 'monthly') return add(anchor, 7 * dir);
-    if (period === 'weekly') return add(anchor, dir);
+    if (period === 'yearly') return addMonths(anchor, 12 * dir);
+    if (period === 'quarterly') return addMonths(anchor, 3 * dir);
+    if (period === 'monthly') return addMonths(anchor, dir);
+    if (period === 'weekly') return add(anchor, 7 * dir);
     return anchor;
   }
 
