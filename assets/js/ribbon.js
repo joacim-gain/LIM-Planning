@@ -120,7 +120,7 @@ window.R = (function () {
     el().querySelectorAll('[data-dd]').forEach((b) => b.onclick = () => openDropdown(b.dataset.dd, b));
     // one "Set as default" for the row 2 settings (Time Period, Group By, Sort By, Column, Level)
     $('rbSetDefault').onclick = () => {
-      Object.assign(S.prefs.defaults, { period: v.period, groupBy: v.groupBy, sortBy: v.sortBy, columns: v.columns.slice(), level: v.level });
+      Object.assign(S.prefs.defaults, { period: v.period, groupBy: v.groupBy, sortBy: v.sortBy, columns: v.columns.slice(), level: v.level }); S.prefs.customDefaults = true;
       S.savePrefs(); UI.toast('Current settings saved as default');
     };
     $('lvMinus').onclick = () => { G.applyLevel(Math.max(0, v.level - 1)); changed(); };

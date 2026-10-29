@@ -31,6 +31,7 @@ The CSS and JS links in `index.html` end with `?v=…` (version tags). After you
 
 ## Timeline navigation and markers
 
+- The timeline opens in the **Monthly** view (the default until a user presses **Set as default**).
 - **‹ ›** move to the previous / next period: Yearly = 1 year, Quarterly = 1 quarter, Monthly = 1 month, Weekly = 1 week. The timeline animates in the direction it moves.
 - **TODAY** (text button, styled like Legends) jumps back to the period that contains today.
 - Two dotted lines run down the timeline, each with a tooltip: **olive = Today**, **red = Last updated**.

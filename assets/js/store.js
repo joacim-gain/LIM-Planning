@@ -10,11 +10,13 @@ window.S = (function () {
   const data = saved || { activities: clone(LIM_DATA.ACTIVITIES), deps: clone(LIM_DATA.DEPS), seq: 1 };
 
   // "Set as default" values (live app: Sort by, Column, Level)
-  const DEFAULTS = { period: 'yearly', groupBy: 'none', sortBy: 'default', columns: ['org', 'floors', 'site'], level: 0 };
+  const DEFAULTS = { period: 'monthly', groupBy: 'none', sortBy: 'default', columns: ['org', 'floors', 'site'], level: 0 };
   const prefs = Object.assign({ defaults: clone(DEFAULTS), density: 'compact', ribbonCollapsed: false }, read(PKEY) || {});
+  // until the user presses "Set as default", follow the built-in defaults (so a changed default reaches everyone)
+  if (!prefs.customDefaults) prefs.defaults = clone(DEFAULTS);
 
   const view = {
-    period: prefs.defaults.period || 'yearly',   // yearly | quarterly | monthly | weekly | project
+    period: prefs.defaults.period || 'monthly',   // yearly | quarterly | monthly | weekly | project
     anchor: LIM_DATA.TODAY,      // date the period navigation is centred on
     groupBy: prefs.defaults.groupBy || 'none',
     sortBy: prefs.defaults.sortBy,
